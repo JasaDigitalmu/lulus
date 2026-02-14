@@ -8,6 +8,7 @@ The application is built with PHP Native and uses Composer for dependencies.
 Root Directory: c:/xampp/htdocs/lulus2/
 Database: lulus2 (Imported via database.sql)
 Dependencies: installed via composer install
+
 2. Access Information
 Public Portal (Student)
 URL: http://localhost/lulus2/
@@ -17,10 +18,12 @@ URL: http://localhost/lulus2/login.php
 Default Credentials:
 Username: admin
 Password: password
+
 3. Security Features
 CSRF Protection: All forms are protected against Cross-Site Request Forgery. Uses helpers/csrf.php.
 SQL Injection: Prevented using PDO Prepared Statements.
 XSS: Output escaping using htmlspecialchars.
+
 4. Admin Workflow
 Follow these steps to set up the announcement:
 
@@ -28,10 +31,12 @@ Step 1: School Identity
 Go to Pengaturan Sekolah on the sidebar.
 Update School Name, Headmaster Name/NIP, Graduation Date, and Letter Number.
 Upload Logo: The logo will appear on the Login page, Student Portal, and PDF Header.
+
 Step 2: Manage Classes (New)
 Go to Data Kelas.
 Add classes (e.g., 12-F1 to 12-F8).
 You can Edit or Delete classes as needed.
+
 Step 3: Manage Subjects
 Go to Mata Pelajaran.
 Add or Edit subjects.
@@ -40,10 +45,12 @@ New Feature: Click the "Pilih Kelas..." dropdown to see a list of checkboxes. Si
 Ensure all subjects are categorized correctly (Umum, Pilihan, Muatan Lokal).
 Note on Navigation
 Sidebar Toggle: On smaller screens or to save space, click the "Menu" button at the top left to hide/show the sidebar.
+
 Step 4: Manage Students
 Go to Data Siswa.
 Import Excel: Upload a .xlsx file.
 Format Template: NISN | NAMA LENGKAP | KELAS | JENIS KELAMIN (L/P) | TEMPAT LAHIR | TANGGAL LAHIR (YYYY-MM-DD) | STATUS (LULUS/TIDAK LULUS)
+
 Step 5: Input Grades (Per Subject Import)
 Go to Nilai Siswa.
 Click Import Nilai.
