@@ -2,11 +2,22 @@
 require_once 'header.php';
 
 // Handle Delete
-if (isset($_GET['delete'])) {
+if (isset($_POST['delete_id'])) {
+    verify_csrf_token();
     $stmt = $pdo->prepare("DELETE FROM students WHERE id = ?");
-    if ($stmt->execute([$_GET['delete']])) {
+    if ($stmt->execute([$_POST['delete_id']])) {
         echo "<script>alert('Siswa berhasil dihapus!'); window.location='students.php';</script>";
     }
+}
+
+// Handle Delete All
+if (isset($_POST['delete_all'])) {
+    verify_csrf_token();
+    // Assuming ON DELETE CASCADE is set for grades
+    $pdo->exec("DELETE FROM students");
+    // Reset Auto Increment (optional but good for clean slate)
+    $pdo->exec("ALTER TABLE students AUTO_INCREMENT = 1");
+    echo "<script>alert('SEMUA data siswa berhasil dihapus!'); window.location='students.php';</script>";
 }
 
 // Handle Add/Edit
@@ -59,6 +70,11 @@ $classes = $pdo->query("SELECT * FROM classes ORDER BY name")->fetchAll();
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Data Siswa</h1>
     <div>
+        <form method="POST" class="d-inline" onsubmit="return confirm('PERINGATAN: Anda yakin ingin menghapus SEMUA data siswa?\n\nData Nilai juga akan ikut terhapus.\nTindakan ini TIDAK BISA dibatalkan!')">
+            <?= csrf_field() ?>
+            <input type="hidden" name="delete_all" value="1">
+            <button type="submit" class="btn btn-danger me-2"><i class="bi bi-trash"></i> Hapus Semua</button>
+        </form>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#studentModal" onclick="resetForm()">
             <i class="bi bi-plus-circle"></i> Tambah Siswa
         </button>

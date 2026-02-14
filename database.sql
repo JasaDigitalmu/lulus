@@ -18,6 +18,7 @@ CREATE TABLE `settings` (
   `address` text NOT NULL,
   `website` varchar(255) NOT NULL,
   `logo` varchar(255) DEFAULT NULL,
+  `favicon` varchar(255) DEFAULT NULL,
   `graduation_date` date DEFAULT NULL,
   `letter_number` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

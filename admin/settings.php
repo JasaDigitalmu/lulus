@@ -33,6 +33,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     
     // Let's just do robust updates.
+    $params = [
+        $_POST['app_name'],
+        $_POST['school_name'],
+        $_POST['headmaster_name'],
+        $_POST['headmaster_nip'],
+        $_POST['npsn'],
+        $_POST['address'],
+        $_POST['website'],
+        $_POST['graduation_date'],
+        $_POST['letter_number']
+    ];
+
     $stmt = $pdo->prepare("UPDATE settings SET 
             app_name = ?, school_name = ?, headmaster_name = ?, 
             headmaster_nip = ?, npsn = ?, address = ?, website = ?, 
@@ -44,6 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             move_uploaded_file($_FILES['logo']['tmp_name'], "../uploads/" . $logoName);
             $pdo->prepare("UPDATE settings SET logo = ? WHERE id = 1")->execute([$logoName]);
         }
+        
+        
+        // Favicon Upload Logic Removed - Using Logo instead
+        
         
         $message = '<div class="alert alert-success">Pengaturan berhasil diperbarui!</div>';
         $stmt = $pdo->query("SELECT * FROM settings LIMIT 1");
@@ -97,12 +113,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <textarea name="address" class="form-control" rows="3" required><?= htmlspecialchars($appSettings['address']) ?></textarea>
         </div>
         <div class="col-md-6 mb-3">
-            <label class="form-label">Logo Sekolah</label>
-            <input type="file" name="logo" class="form-control">
+            <label class="form-label">Logo Sekolah (Juga digunakan sebagai Favicon)</label>
+            <input type="file" name="logo" class="form-control" accept=".jpg, .jpeg, .png, .ico">
             <?php if($appSettings['logo']): ?>
                 <img src="../uploads/<?= $appSettings['logo'] ?>" alt="Logo" height="50" class="mt-2">
             <?php endif; ?>
         </div>
+        <!-- Favicon input removed -->
 
     </div>
     <button type="submit" class="btn btn-primary">Simpan Pengaturan</button>
